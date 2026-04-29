@@ -186,7 +186,7 @@ def parse_args():
 
     parser.add_argument("--size", type=int, default=128)
     parser.add_argument("--measurements", type=int, default=4)
-    parser.add_argument("--n-iter", type=int, default=400)
+    parser.add_argument("--n-iter", type=int, default=1000)
 
     parser.add_argument(
         "--noise-model",
@@ -224,7 +224,7 @@ def parse_args():
         type=str,
         default="results/coded_diffraction_pattern/gpie",
     )
-    parser.add_argument("--log-interval", type=int, default=10)
+    parser.add_argument("--log-interval", type=int, default=50)
     parser.add_argument("--save-graph", action="store_true")
 
     return parser.parse_args()

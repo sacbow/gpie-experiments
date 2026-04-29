@@ -25,7 +25,7 @@ def ifft2c(x):
     )
 
 
-def spectral_preprocess(y, eps=1e-12, clip_min=-5.0):
+def spectral_preprocess(y, eps=1e-12, clip_min=-1.0):
     """
     Apply the standard spectral preprocessing function.
 
