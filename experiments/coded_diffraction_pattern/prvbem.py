@@ -7,9 +7,25 @@ from experiments.coded_diffraction_pattern.wirtinger_flow import (
 )
 
 
-def bessel_ratio_i1_i0(kappa, eps=1e-12):
-    """Compute I1(kappa) / I0(kappa) stably using exponentially scaled Bessel functions."""
-    return ive(1, kappa) / (ive(0, kappa) + eps)
+import numpy as np
+
+
+def bessel_ratio_i1_i0(kappa):
+    """
+    Instead of directly evaluating Bessel functions, 
+    we use an approximate implementation borrowed from :
+    https://github.com/ricedsp/D-AMP_Toolbox/blob/master/Algorithms/DprGAMP.m
+
+    """
+
+    B = kappa
+
+    ratio = np.minimum(
+        B / (np.sqrt(B**2 + 4.0)),
+        B / (0.5 + np.sqrt(B**2 + 0.25)),
+    )
+
+    return np.clip(ratio, 0.0, 1.0)
 
 
 def random_complex_normal(shape, seed=0):
@@ -51,7 +67,7 @@ def prvbem_step(
     z = cdp_forward_linear(m, masks)
 
     kappa = 2.0 * y * np.abs(z) / (sigma_n2 + eps)
-    ratio = bessel_ratio_i1_i0(kappa, eps=eps)
+    ratio = bessel_ratio_i1_i0(kappa)
 
     phase = np.exp(1j * np.angle(z))
     y_bar = y * phase * ratio

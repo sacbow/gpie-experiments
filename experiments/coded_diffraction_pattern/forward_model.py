@@ -88,13 +88,15 @@ def make_cdp(
     # ------------------------------------------------------------
     # noise
     # ------------------------------------------------------------
+
     if noise_model == "gaussian":
         var = noise_param
 
         noise = rng.normal(size=amplitude.shape) * math.sqrt(var)
         y = amplitude + noise
-
         noise_var = var
+        return masks, y, noise_var
+
 
     elif noise_model == "poisson":
         scale = noise_param
@@ -103,6 +105,7 @@ def make_cdp(
         scaled = scale * intensity
 
         y_poisson = rng.poisson(scaled)
+        photon_counts = np.max(y_poisson)
 
         # Anscombe
         y = anscombe_transform(y_poisson)
@@ -113,7 +116,10 @@ def make_cdp(
         # effective variance
         noise_var = 1.0 / (4.0 * scale)
 
+        return masks, y, noise_var, photon_counts
+
+
     else:
         raise ValueError(f"Unknown noise_model: {noise_model}")
 
-    return masks, y, noise_var
+    

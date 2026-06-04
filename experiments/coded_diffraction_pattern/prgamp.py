@@ -42,16 +42,7 @@ def A_adjoint(z, masks):
 # ------------------------------------------------------------
 def g_out_phaseless(p, pvar, y, wvar, eps=1e-12):
     """
-    Output nonlinear step for phase retrieval.
-
-    Args:
-        p: (M,H,W)
-        pvar: scalar
-        y: (M,H,W)
-        wvar: scalar (noise variance)
-
-    Returns:
-        g, dg
+    Borrowed from https://github.com/ricedsp/D-AMP_Toolbox/blob/master/Algorithms/DprGAMP.m
     """
     abs_p = np.abs(p)
     B = 2.0 * y * abs_p / (wvar + pvar + eps)
