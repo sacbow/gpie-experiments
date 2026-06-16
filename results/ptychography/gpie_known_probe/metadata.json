@@ -1,0 +1,34 @@
+{
+  "data_seed": 0,
+  "init_seed": 111,
+  "object_name": "coins",
+  "object_shape": [
+    256,
+    256
+  ],
+  "phase_scale": 1.5707963267948966,
+  "amplitude_min": 0.2,
+  "probe_shape": [
+    64,
+    64
+  ],
+  "probe_radius": 24.0,
+  "soft_edge_width": 0.0,
+  "phase_curvature": 4.0,
+  "scan_step": 32,
+  "scan_jitter": 1,
+  "n_scan": 49,
+  "photon_scale": 1000.0,
+  "measurement": "scaled_anscombe",
+  "noise_var": 0.001,
+  "damping": "auto",
+  "n_iter": 400,
+  "log_every": 20,
+  "eval_crop_margin": 32,
+  "init": "default",
+  "device": "cpu",
+  "schedule": "sequential",
+  "block_size": 1,
+  "final_full_pmse": 2.8149688660050742e-06,
+  "final_crop_pmse": 1.542402685572597e-07
+}

@@ -92,7 +92,7 @@ def backend_pmse(
     x_true,
     *,
     margin: int = 0,
-    normalize: bool = False,
+    normalize: bool = True,
 ) -> float:
     """Compute backend-aware PMSE, optionally on a central crop."""
     x_est_eval = crop_for_metric(x_est, margin)
