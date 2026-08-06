@@ -1,0 +1,11 @@
+{
+  "config_source": "C:\\Users\\ndhaj\\Desktop\\gpie-experiments\\configs\\coded_diffraction_pattern\\natural_image_demo.json",
+  "elapsed_seconds": 7.916008,
+  "entrypoint": "runners.coded_diffraction_pattern.run_natural_image_demo:run",
+  "experiment_name": "natural_image_demo",
+  "finished_at": "2026-08-06T20:23:35.237846+09:00",
+  "method": "gpie",
+  "problem": "coded_diffraction_pattern",
+  "started_at": "2026-08-06T20:23:27.321838+09:00",
+  "status": "completed"
+}

@@ -1,0 +1,11 @@
+{
+  "config_source": "C:\\Users\\ndhaj\\Desktop\\gpie-experiments\\configs\\coded_diffraction_pattern\\random_mask_sweep.json",
+  "elapsed_seconds": 104.080105,
+  "entrypoint": "runners.coded_diffraction_pattern.benchmark_random_cdp_masks:run",
+  "experiment_name": "random_mask_sweep",
+  "finished_at": "2026-08-06T19:50:24.416456+09:00",
+  "method": "benchmark",
+  "problem": "coded_diffraction_pattern",
+  "started_at": "2026-08-06T19:48:40.336351+09:00",
+  "status": "completed"
+}

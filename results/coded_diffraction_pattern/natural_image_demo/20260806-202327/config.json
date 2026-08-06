@@ -1,0 +1,43 @@
+{
+  "algorithm": {
+    "gpie": {
+      "block_size": 1,
+      "damping": 0.25,
+      "n_iter": 500,
+      "schedule": "sequential"
+    }
+  },
+  "data": {
+    "object": {
+      "amplitude_image": "coins",
+      "mode": "real",
+      "normalize": "max",
+      "phase_image": "eagle",
+      "phase_scale": 6.283185307179586
+    },
+    "seed": 5,
+    "size": 256
+  },
+  "experiment": {
+    "entrypoint": "runners.coded_diffraction_pattern.run_natural_image_demo:run",
+    "method": "gpie",
+    "name": "natural_image_demo",
+    "problem": "coded_diffraction_pattern"
+  },
+  "forward_model": {
+    "n_masks": 2,
+    "noise_model": "poisson",
+    "noise_param": 100.0
+  },
+  "output": {
+    "root": "results",
+    "save_figures": true,
+    "save_history": true,
+    "save_reconstruction": true
+  },
+  "runtime": {
+    "device": "cpu",
+    "fft_engine": null,
+    "verbose": false
+  }
+}

@@ -112,7 +112,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--soft-edge-width", type=float, default=0.0)
     parser.add_argument("--phase-curvature", type=float, default=4.0)
 
-    parser.add_argument("--scan-step", type=int, default=32)
+    parser.add_argument("--scan-step", type=int, default=16)
     parser.add_argument("--scan-jitter", type=int, default=1)
 
     parser.add_argument("--photon-scale", type=float, default=1e3)
@@ -126,7 +126,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--n-iter", type=int, default=200)
     parser.add_argument("--beta-object", type=float, default=0.1)
     parser.add_argument("--alpha", type=float, default=0.1)
-    parser.add_argument("--log-every", type=int, default=10)
+    parser.add_argument("--log-every", type=int, default=20)
 
     parser.add_argument(
         "--eval-crop-margin",

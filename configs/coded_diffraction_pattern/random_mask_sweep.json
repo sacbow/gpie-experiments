@@ -1,0 +1,56 @@
+{
+  "experiment": {
+    "problem": "coded_diffraction_pattern",
+    "name": "random_mask_sweep",
+    "method": "benchmark",
+    "entrypoint": "runners.coded_diffraction_pattern.benchmark_random_cdp_masks:run"
+  },
+  "data": {
+    "size": 32,
+    "mask_counts": [1, 2, 3, 4, 5, 6],
+    "n_trials": 10,
+    "data_seed_base": 1000,
+    "init_seed_base": 2000
+  },
+  "forward_model": {
+    "noise_model": "gaussian",
+    "noise_param": 1e-8
+  },
+  "algorithm": {
+    "methods": [
+      "gpie",
+      "wf",
+      "prvbem",
+      "prgamp"
+    ],
+    "gpie": {
+      "n_iter": 1000,
+      "schedule": "parallel",
+      "block_size": 1
+    },
+    "wf": {
+      "n_iter": 2000,
+      "mu_max": 0.4,
+      "tau": 300.0,
+      "spectral_initialization": {
+        "n_iter": 50,
+        "lamb": 10.0
+      }
+    },
+    "prvbem": {
+      "n_iter": 1000
+    },
+    "prgamp": {
+      "n_iter": 1000,
+      "beta": 0.25
+    }
+  },
+  "runtime": {
+    "device": "cpu",
+    "fft_engine": null,
+    "verbose": false
+  },
+  "output": {
+    "root": "results"
+  }
+}

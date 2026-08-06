@@ -1,0 +1,66 @@
+{
+  "algorithm": {
+    "gpie": {
+      "block_size": 1,
+      "n_iter": 1000,
+      "schedule": "parallel"
+    },
+    "methods": [
+      "gpie",
+      "wf",
+      "prvbem",
+      "prgamp"
+    ],
+    "prgamp": {
+      "beta": 0.25,
+      "n_iter": 1000
+    },
+    "prvbem": {
+      "n_iter": 1000
+    },
+    "wf": {
+      "mu_max": 0.4,
+      "n_iter": 2000,
+      "spectral_initialization": {
+        "lamb": 10.0,
+        "n_iter": 50
+      },
+      "tau": 300.0
+    }
+  },
+  "data": {
+    "data_seed_base": 1000,
+    "init_seed_base": 2000,
+    "mask_counts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "n_trials": 10,
+    "size": 32
+  },
+  "experiment": {
+    "entrypoint": "runners.coded_diffraction_pattern.benchmark_random_cdp_masks:run",
+    "method": "benchmark",
+    "name": "random_mask_sweep",
+    "problem": "coded_diffraction_pattern"
+  },
+  "forward_model": {
+    "noise_model": "gaussian",
+    "noise_param": 1e-08
+  },
+  "output": {
+    "root": "results",
+    "save_figures": true,
+    "save_history": true,
+    "save_reconstruction": true
+  },
+  "runtime": {
+    "device": "cpu",
+    "fft_engine": null,
+    "verbose": false
+  }
+}
