@@ -1,0 +1,51 @@
+{
+  "experiment": {
+    "problem": "ptychography",
+    "name": "blind_probe_smoke",
+    "method": "gpie",
+    "entrypoint": "runners.ptychography.run_gpie_blind_probe:run"
+  },
+  "data": {
+    "object_size": 512,
+    "object_crop_size": 256,
+    "object_name": "camera",
+    "phase_scale": 1.5707963267948966,
+    "amplitude_min": 0.0,
+    "probe_size": 128,
+    "probe_image": "eagle",
+    "probe_radius": 32.0,
+    "data_seed": 1000,
+    "init_seed": 2000
+  },
+  "forward_model": {
+    "noise_model": "gaussian",
+    "snr_db": 30.0,
+    "scan": {
+      "grid_shape": [10, 10],
+      "step": 30,
+      "jitter": 4
+    }
+  },
+  "algorithm": {
+    "n_iter": 200,
+    "damping": 0.6,
+    "schedule": "parallel",
+    "block_size": 1,
+    "object_init": "perturbed_ones",
+    "object_init_perturbation": 1e-4,
+    "measurement_warm_start": false,
+    "measurement_init_precision": 1.0,
+    "log_every": 10
+  },
+  "runtime": {
+    "device": "cuda",
+    "fft_engine": null,
+    "verbose": false
+  },
+  "output": {
+    "root": "results",
+    "save_history": true,
+    "save_figures": true,
+    "save_reconstruction": true
+  }
+}

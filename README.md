@@ -153,3 +153,223 @@ gpie-exp validate ptychography/example.json
 gpie-exp show ptychography/example.json
 gpie-exp run ptychography/example.json
 ```
+
+
+## Coded Diffraction Pattern Experiments
+
+The coded diffraction pattern experiments currently include:
+
+* A random-mask benchmark comparing gPIE with baseline phase-retrieval methods.
+* A natural-image reconstruction demo using gPIE.
+
+### Random-Mask Benchmark
+
+The benchmark evaluates reconstruction performance as the number of random phase masks changes.
+
+The default configuration is:
+
+```text
+configs/coded_diffraction_pattern/random_mask_sweep.json
+```
+
+Validate the configuration with:
+
+```bash
+python -m utils.cli validate \
+  coded_diffraction_pattern/random_mask_sweep.json
+```
+
+Display the fully resolved configuration with:
+
+```bash
+python -m utils.cli show \
+  coded_diffraction_pattern/random_mask_sweep.json
+```
+
+Run the benchmark with:
+
+```bash
+python -m utils.cli run \
+  coded_diffraction_pattern/random_mask_sweep.json
+```
+
+The benchmark writes trial-level results, summary statistics, and the final mask-count plot to the generated run directory:
+
+```text
+results/
+└── coded_diffraction_pattern/
+    └── random_mask_sweep/
+        └── <run-id>/
+            ├── config.json
+            ├── metadata.json
+            ├── raw_results.csv
+            ├── raw_results.json
+            ├── summary.csv
+            ├── summary.json
+            └── mask_vs_pmse.png
+```
+
+The reconstruction methods included in the benchmark are selected through the `algorithm.methods` field in the JSON configuration.
+
+Currently supported methods are:
+
+```json
+{
+  "algorithm": {
+    "methods": [
+      "gpie",
+      "wf",
+      "prvbem",
+      "prgamp"
+    ]
+  }
+}
+```
+
+### Natural-Image Demo
+
+The natural-image demo reconstructs an image from coded diffraction pattern measurements using gPIE.
+
+The default configuration is:
+
+```text
+configs/coded_diffraction_pattern/natural_image_demo.json
+```
+
+Validate the configuration with:
+
+```bash
+python -m utils.cli validate \
+  coded_diffraction_pattern/natural_image_demo.json
+```
+
+Display the resolved configuration with:
+
+```bash
+python -m utils.cli show \
+  coded_diffraction_pattern/natural_image_demo.json
+```
+
+Run the demo with:
+
+```bash
+python -m utils.cli run \
+  coded_diffraction_pattern/natural_image_demo.json
+```
+
+The default experiment reconstructs a real-valued natural image. The object mode is controlled by:
+
+```json
+{
+  "data": {
+    "object": {
+      "mode": "real"
+    }
+  }
+}
+```
+
+A complex-valued object can be constructed from separate amplitude and phase images by setting:
+
+```json
+{
+  "data": {
+    "object": {
+      "mode": "complex",
+      "amplitude_image": "coins",
+      "phase_image": "eagle",
+      "normalize": "max",
+      "phase_scale": 6.283185307179586
+    }
+  }
+}
+```
+
+The noise model is selected in the forward-model section:
+
+```json
+{
+  "forward_model": {
+    "noise_model": "poisson",
+    "noise_param": 100.0
+  }
+}
+```
+
+Supported noise models are:
+
+```text
+gaussian
+poisson
+```
+
+The generated run directory contains the resolved configuration, execution metadata, scalar metrics, reconstructed arrays, and visualization images:
+
+```text
+results/
+└── coded_diffraction_pattern/
+    └── natural_image_demo/
+        └── <run-id>/
+            ├── config.json
+            ├── metadata.json
+            ├── metrics.json
+            ├── result.npz
+            ├── true_real.png
+            └── est_real.png
+```
+
+For a complex-valued reconstruction, amplitude and phase images are saved instead:
+
+```text
+true_amp_cmp.png
+true_phase_cmp.png
+est_amp_cmp.png
+est_phase_cmp.png
+```
+
+### Quick Smoke Tests
+
+Before running the full experiments, reduce the problem size, iteration count, and number of trials in a copied configuration file.
+
+For example, a short random-mask benchmark can use:
+
+```json
+{
+  "data": {
+    "size": 32,
+    "mask_counts": [1],
+    "n_trials": 1
+  },
+  "algorithm": {
+    "methods": ["gpie"],
+    "gpie": {
+      "n_iter": 2,
+      "schedule": "parallel",
+      "block_size": 1
+    }
+  }
+}
+```
+
+A short natural-image demo can use:
+
+```json
+{
+  "data": {
+    "size": 32
+  },
+  "forward_model": {
+    "n_masks": 2
+  },
+  "algorithm": {
+    "gpie": {
+      "n_iter": 2,
+      "damping": 0.25,
+      "schedule": "sequential",
+      "block_size": 1
+    }
+  }
+}
+```
+
+Each smoke-test configuration must still contain the required `experiment` section and any other required fields not shown in these partial examples.

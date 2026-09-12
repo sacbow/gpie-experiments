@@ -1,0 +1,46 @@
+{
+  "experiment": {
+    "problem": "random_structured_cdi",
+    "name": "natural_image_demo",
+    "method": "gpie",
+    "entrypoint": "runners.random_structured_cdi.run_natural_image_demo:run"
+  },
+  "data": {
+    "size": 256,
+    "seed": 5,
+    "object": {
+      "amplitude_image": "coins",
+      "phase_image": "eagle",
+      "normalize": "max",
+      "phase_scale": 6.283185307179586
+    }
+  },
+  "forward_model": {
+    "n_layers": 2,
+    "support": {
+      "type": "circular",
+      "radius_fraction": 0.3
+    },
+    "noise_model": "gaussian",
+    "noise_param": 1e-4
+  },
+  "algorithm": {
+    "gpie": {
+      "n_iter": 500,
+      "init_seed": 1005,
+      "damping": 0.25,
+      "schedule": "parallel",
+      "block_size": 1
+    }
+  },
+  "runtime": {
+    "device": "cpu",
+    "fft_engine": null,
+    "verbose": false
+  },
+  "output": {
+    "root": "results",
+    "save_figures": true,
+    "save_reconstruction": true
+  }
+}

@@ -36,3 +36,87 @@ def make_circular_probe(
     probe = probe / max(np.max(np.abs(probe)), 1e-12)
 
     return probe.astype(np.complex64)
+
+
+from datasets.loader import get_image
+
+
+def make_image_probe(
+    *,
+    image_name: str,
+    shape: tuple[int, int],
+    radius: float,
+    normalize: str = "max",
+) -> np.ndarray:
+    """Create an image-based probe truncated by a circular aperture."""
+    if shape[0] != shape[1]:
+        raise ValueError(
+            "Only square probe shapes are supported."
+        )
+
+    image = get_image(
+        name=image_name,
+        size=shape[0],
+        normalize=normalize,
+    ).astype(
+        np.float32,
+        copy=False,
+    )
+
+    ny, nx = shape
+    yy, xx = np.indices(shape)
+
+    cy = (ny - 1) / 2.0
+    cx = (nx - 1) / 2.0
+
+    radius_map = np.sqrt(
+        (yy - cy) ** 2
+        + (xx - cx) ** 2
+    )
+
+    support = radius_map < radius
+
+    probe = np.where(
+        support,
+        image,
+        np.float32(0.0),
+    )
+
+    peak = np.max(
+        np.abs(probe)
+    )
+
+    if peak > 0:
+        probe = probe / peak
+
+    return probe.astype(
+        np.complex64
+    )
+
+
+def make_aperture_probe(
+    *,
+    shape: tuple[int, int],
+    radius: float,
+) -> np.ndarray:
+    """Create a unit-amplitude circular probe."""
+    ny, nx = shape
+    yy, xx = np.indices(shape)
+
+    cy = (ny - 1) / 2.0
+    cx = (nx - 1) / 2.0
+
+    radius_map = np.sqrt(
+        (yy - cy) ** 2
+        + (xx - cx) ** 2
+    )
+
+    probe = (
+        radius_map < radius
+    ).astype(
+        np.float32
+    )
+
+    return probe.astype(
+        np.complex64
+    )

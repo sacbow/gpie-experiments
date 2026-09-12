@@ -1,0 +1,9 @@
+{
+  "config_source": "C:\\Users\\ndhaj\\Desktop\\gpie-experiments\\configs\\ptychography\\known_probe_pie_vs_gpie.json",
+  "entrypoint": "runners.ptychography.benchmark_known_probe:run",
+  "experiment_name": "known_probe_pie_vs_gpie",
+  "method": "benchmark",
+  "problem": "ptychography",
+  "started_at": "2026-08-09T11:11:26.905897+09:00",
+  "status": "running"
+}

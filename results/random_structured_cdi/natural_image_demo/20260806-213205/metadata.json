@@ -1,0 +1,11 @@
+{
+  "config_source": "C:\\Users\\ndhaj\\Desktop\\gpie-experiments\\configs\\random_structured_cdi\\natural_image_demo.json",
+  "elapsed_seconds": 4.989621,
+  "entrypoint": "runners.random_structured_cdi.run_natural_image_demo:run",
+  "experiment_name": "natural_image_demo",
+  "finished_at": "2026-08-06T21:32:09.997756+09:00",
+  "method": "gpie",
+  "problem": "random_structured_cdi",
+  "started_at": "2026-08-06T21:32:05.008135+09:00",
+  "status": "completed"
+}

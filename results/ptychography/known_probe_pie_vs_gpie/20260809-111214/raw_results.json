@@ -1,0 +1,41 @@
+[
+  {
+    "method": "pie",
+    "target_sampling_ratio": 4.0,
+    "sampling_ratio": 3.9995354339176257,
+    "scan_step": 16.750000000000117,
+    "n_scans": 227,
+    "coverage_pixels": 232475,
+    "trial": 0,
+    "data_seed": 1000,
+    "init_seed": 2000,
+    "pmse": 0.0004599828680511564,
+    "pmse_db": 33.3725834320843
+  },
+  {
+    "method": "gpie",
+    "target_sampling_ratio": 4.0,
+    "sampling_ratio": 3.9995354339176257,
+    "scan_step": 16.750000000000117,
+    "n_scans": 227,
+    "coverage_pixels": 232475,
+    "trial": 0,
+    "data_seed": 1000,
+    "init_seed": 2000,
+    "pmse": 0.0010789746884256601,
+    "pmse_db": 29.66988743274458
+  },
+  {
+    "method": "pie",
+    "target_sampling_ratio": 4.0,
+    "sampling_ratio": 3.9995354339176257,
+    "scan_step": 16.750000000000117,
+    "n_scans": 227,
+    "coverage_pixels": 232475,
+    "trial": 1,
+    "data_seed": 1001,
+    "init_seed": 2001,
+    "pmse": 0.0005013445625081658,
+    "pmse_db": 32.998636909759064
+  }
+]

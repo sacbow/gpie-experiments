@@ -1,0 +1,11 @@
+{
+  "config_source": "C:\\Users\\ndhaj\\Desktop\\gpie-experiments\\configs\\ptychography\\blind_probe_smoke.json",
+  "elapsed_seconds": 4.961086,
+  "entrypoint": "runners.ptychography.run_gpie_blind_probe:run",
+  "experiment_name": "blind_probe_smoke",
+  "finished_at": "2026-08-09T16:46:13.572997+09:00",
+  "method": "gpie",
+  "problem": "ptychography",
+  "started_at": "2026-08-09T16:46:08.611911+09:00",
+  "status": "completed"
+}

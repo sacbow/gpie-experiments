@@ -1,0 +1,83 @@
+{
+  "algorithm": {
+    "gpie": {
+      "block_size": 1,
+      "damping": 0.1,
+      "n_iter": 1000,
+      "schedule": "sequential"
+    },
+    "log_every": 20,
+    "methods": [
+      "pie",
+      "gpie"
+    ],
+    "pie": {
+      "alpha": 0.1,
+      "beta_object": 0.1,
+      "n_iter": 4000,
+      "shuffle": false
+    }
+  },
+  "data": {
+    "data_seed_base": 1000,
+    "eval_crop_size": 256,
+    "init_seed_base": 2000,
+    "n_trials": 5,
+    "object": {
+      "amplitude_image": "camera",
+      "amplitude_min": 0.0,
+      "normalize": "max",
+      "phase_image": "eagle",
+      "phase_scale": 1.5707963267948966
+    },
+    "object_size": 512
+  },
+  "experiment": {
+    "entrypoint": "runners.ptychography.benchmark_known_probe:run",
+    "method": "benchmark",
+    "name": "known_probe_pie_vs_gpie",
+    "problem": "ptychography"
+  },
+  "forward_model": {
+    "noise_model": "gaussian",
+    "probe": {
+      "phase_curvature": 0.0,
+      "radius": 32.0,
+      "size": 64,
+      "soft_edge_width": 0.0
+    },
+    "scan": {
+      "coverage_min_count": 1,
+      "jitter": 0,
+      "margin": 0,
+      "step_search": {
+        "max": 64.0,
+        "min": 16.0,
+        "resolution": 0.01
+      },
+      "target_sampling_ratios": [
+        4.0,
+        3.0,
+        2.5,
+        2.4,
+        2.3,
+        2.2,
+        2.1,
+        2.0
+      ],
+      "type": "fermat"
+    },
+    "snr_db": 30.0
+  },
+  "output": {
+    "root": "results",
+    "save_figures": true,
+    "save_history": true,
+    "save_reconstruction": true
+  },
+  "runtime": {
+    "device": "cpu",
+    "fft_engine": null,
+    "verbose": false
+  }
+}

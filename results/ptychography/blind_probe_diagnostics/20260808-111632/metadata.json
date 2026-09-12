@@ -1,0 +1,9 @@
+{
+  "config_source": "C:\\Users\\ndhaj\\Desktop\\gpie-experiments\\configs\\ptychography\\blind_probe_diagnose.json",
+  "entrypoint": "runners.ptychography.diagnose_blind_probe:run",
+  "experiment_name": "blind_probe_diagnostics",
+  "method": "gpie",
+  "problem": "ptychography",
+  "started_at": "2026-08-08T11:16:32.876735+09:00",
+  "status": "running"
+}

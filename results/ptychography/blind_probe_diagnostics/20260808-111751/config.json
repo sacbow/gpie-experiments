@@ -1,0 +1,71 @@
+{
+  "algorithm": {
+    "amplitude_damping": 0.5,
+    "block_size": 1,
+    "conditions": [
+      {
+        "measurement": "gaussian",
+        "name": "gaussian_probe_truth",
+        "probe_init": "truth"
+      },
+      {
+        "measurement": "gaussian",
+        "name": "gaussian_probe_aperture",
+        "probe_init": "aperture"
+      },
+      {
+        "measurement": "amplitude",
+        "name": "amplitude_probe_truth",
+        "probe_init": "truth"
+      },
+      {
+        "measurement": "amplitude",
+        "name": "amplitude_probe_aperture",
+        "probe_init": "aperture"
+      }
+    ],
+    "log_every": 1,
+    "n_iter": 50,
+    "object_init": "ones",
+    "schedule": "sequential"
+  },
+  "data": {
+    "amplitude_min": 0.0,
+    "data_seed": 1000,
+    "init_seed": 2000,
+    "object_crop_size": 256,
+    "object_name": "camera",
+    "object_size": 512,
+    "phase_scale": 1.5707963267948966,
+    "probe_image": "moon",
+    "probe_radius": 32.0,
+    "probe_size": 128
+  },
+  "experiment": {
+    "entrypoint": "runners.ptychography.diagnose_blind_probe:run",
+    "method": "gpie",
+    "name": "blind_probe_diagnostics",
+    "problem": "ptychography"
+  },
+  "forward_model": {
+    "scan": {
+      "grid_shape": [
+        10,
+        10
+      ],
+      "step": 12
+    },
+    "snr_db": 30.0
+  },
+  "output": {
+    "root": "results",
+    "save_figures": true,
+    "save_history": true,
+    "save_reconstruction": true
+  },
+  "runtime": {
+    "device": "cpu",
+    "fft_engine": null,
+    "verbose": false
+  }
+}

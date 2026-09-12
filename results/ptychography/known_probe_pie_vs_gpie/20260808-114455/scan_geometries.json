@@ -1,0 +1,66 @@
+[
+  {
+    "target_sampling_ratio": 4.0,
+    "sampling_ratio": 3.9995354339176257,
+    "scan_step": 16.75000000000001,
+    "n_scans": 227,
+    "coverage_pixels": 232475,
+    "ratio_error": 0.00046456608237432917
+  },
+  {
+    "target_sampling_ratio": 3.0,
+    "sampling_ratio": 3.0043270879175727,
+    "scan_step": 19.55000000000005,
+    "n_scans": 169,
+    "coverage_pixels": 230409,
+    "ratio_error": 0.004327087917572747
+  },
+  {
+    "target_sampling_ratio": 2.5,
+    "sampling_ratio": 2.498468328257662,
+    "scan_step": 21.70000000000008,
+    "n_scans": 136,
+    "coverage_pixels": 222959,
+    "ratio_error": 0.0015316717423381476
+  },
+  {
+    "target_sampling_ratio": 2.4,
+    "sampling_ratio": 2.3978240899184033,
+    "scan_step": 22.200000000000088,
+    "n_scans": 130,
+    "coverage_pixels": 222068,
+    "ratio_error": 0.002175910081596566
+  },
+  {
+    "target_sampling_ratio": 2.3,
+    "sampling_ratio": 2.296654151695801,
+    "scan_step": 22.750000000000096,
+    "n_scans": 125,
+    "coverage_pixels": 222933,
+    "ratio_error": 0.0033458483041988174
+  },
+  {
+    "target_sampling_ratio": 2.2,
+    "sampling_ratio": 2.200356340260182,
+    "scan_step": 23.300000000000104,
+    "n_scans": 120,
+    "coverage_pixels": 223382,
+    "ratio_error": 0.00035634026018183107
+  },
+  {
+    "target_sampling_ratio": 2.1,
+    "sampling_ratio": 2.102251342066204,
+    "scan_step": 23.900000000000112,
+    "n_scans": 111,
+    "coverage_pixels": 216271,
+    "ratio_error": 0.0022513420662040318
+  },
+  {
+    "target_sampling_ratio": 2.0,
+    "sampling_ratio": 1.9998526052030363,
+    "scan_step": 24.650000000000123,
+    "n_scans": 106,
+    "coverage_pixels": 217104,
+    "ratio_error": 0.00014739479696368463
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "algorithm": {
+    "block_size": 1,
+    "damping": 0.5,
+    "log_every": 10,
+    "measurement_init_precision": 1.0,
+    "measurement_warm_start": false,
+    "n_iter": 100,
+    "object_init": "perturbed_ones",
+    "object_init_perturbation": 0.0001,
+    "schedule": "parallel"
+  },
+  "data": {
+    "amplitude_min": 0.0,
+    "data_seed": 1000,
+    "init_seed": 2000,
+    "object_crop_size": 256,
+    "object_name": "camera",
+    "object_size": 512,
+    "phase_scale": 1.5707963267948966,
+    "probe_image": "moon",
+    "probe_radius": 32.0,
+    "probe_size": 128
+  },
+  "experiment": {
+    "entrypoint": "runners.ptychography.run_gpie_blind_probe:run",
+    "method": "gpie",
+    "name": "blind_probe_smoke",
+    "problem": "ptychography"
+  },
+  "forward_model": {
+    "noise_model": "gaussian",
+    "scan": {
+      "grid_shape": [
+        10,
+        10
+      ],
+      "jitter": 4,
+      "step": 32
+    },
+    "snr_db": 30.0
+  },
+  "output": {
+    "root": "results",
+    "save_figures": true,
+    "save_history": true,
+    "save_reconstruction": true
+  },
+  "runtime": {
+    "device": "cuda",
+    "fft_engine": null,
+    "verbose": false
+  }
+}

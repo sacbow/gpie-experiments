@@ -81,3 +81,70 @@ def forward_ptychography(
         anscombe=anscombe,
         photon_scale=float(photon_scale),
     )
+
+
+#Used for reproduction of Ptycho-EP data
+@dataclass(frozen=True)
+class GaussianPtychographyData:
+    """Container for Gaussian amplitude-noise ptychography data."""
+
+    obj: np.ndarray
+    probe: np.ndarray
+    positions: np.ndarray
+    exit_waves: np.ndarray
+    farplane_waves: np.ndarray
+    intensity: np.ndarray
+    noiseless_amplitude: np.ndarray
+    observed_amplitude: np.ndarray
+    noise_var: float
+    snr_db: float
+
+
+def forward_ptychography_gaussian(
+    obj: np.ndarray,
+    probe: np.ndarray,
+    positions: np.ndarray,
+    *,
+    snr_db: float = 30.0,
+    rng: np.random.Generator | None = None,
+) -> GaussianPtychographyData:
+    """Generate ptychography data with additive Gaussian amplitude noise."""
+    rng = np.random.default_rng() if rng is None else rng
+
+    patches = extract_patches(
+        obj,
+        positions,
+        probe.shape,
+    )
+    exit_waves = patches * probe[None, :, :]
+
+    farplane_waves = fft2_centered(exit_waves)
+    intensity = np.abs(farplane_waves) ** 2
+    noiseless_amplitude = np.abs(farplane_waves)
+
+    signal_power = float(np.mean(intensity))
+    snr_linear = 10.0 ** (snr_db / 10.0)
+    noise_var = signal_power / snr_linear
+
+    noise = rng.normal(
+        loc=0.0,
+        scale=np.sqrt(noise_var),
+        size=noiseless_amplitude.shape,
+    )
+
+    observed_amplitude = (
+        noiseless_amplitude + noise
+    ).astype(np.float32)
+
+    return GaussianPtychographyData(
+        obj=obj,
+        probe=probe,
+        positions=positions,
+        exit_waves=exit_waves.astype(np.complex64),
+        farplane_waves=farplane_waves.astype(np.complex64),
+        intensity=intensity.astype(np.float32),
+        noiseless_amplitude=noiseless_amplitude.astype(np.float32),
+        observed_amplitude=observed_amplitude,
+        noise_var=float(noise_var),
+        snr_db=float(snr_db),
+    )

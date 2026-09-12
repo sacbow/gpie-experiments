@@ -1,5 +1,5 @@
 import numpy as np
-from skimage import data, color, transform
+from skimage import color, data, transform
 
 
 # ------------------------------------------------------------
@@ -9,21 +9,23 @@ def _to_float32(x):
     """Convert uint8 image to float32 in [0, 1]."""
     if x.dtype == np.uint8:
         return x.astype(np.float32) / 255.0
+
     return x.astype(np.float32)
 
 
 def _center_crop_to_square(x):
-    """Crop image to centered square."""
-    H, W = x.shape
-    if H == W:
+    """Crop image to a centered square."""
+    height, width = x.shape
+
+    if height == width:
         return x
 
-    if H > W:
-        start = (H - W) // 2
-        return x[start:start + W, :]
-    else:
-        start = (W - H) // 2
-        return x[:, start:start + H]
+    if height > width:
+        start = (height - width) // 2
+        return x[start:start + width, :]
+
+    start = (width - height) // 2
+    return x[:, start:start + height]
 
 
 def _resize(x, size):
@@ -38,22 +40,23 @@ def _resize(x, size):
 
 def _normalize(x, mode="max"):
     """
-    Normalize image.
+    Normalize an image.
 
-    mode:
-        - "max": divide by max
-        - "l2": unit L2 norm
+    Modes:
+        - "max": divide by the maximum value
+        - "l2": normalize to unit L2 norm
     """
     eps = 1e-12
 
     if mode == "max":
         return x / (np.max(x) + eps)
 
-    elif mode == "l2":
+    if mode == "l2":
         return x / (np.linalg.norm(x) + eps)
 
-    else:
-        raise ValueError(f"Unknown normalization mode: {mode}")
+    raise ValueError(
+        f"Unknown normalization mode: {mode}"
+    )
 
 
 # ------------------------------------------------------------
@@ -61,11 +64,11 @@ def _normalize(x, mode="max"):
 # ------------------------------------------------------------
 def load_coins(size=128, normalize="max"):
     """
-    Load skimage 'coins' dataset.
+    Load the skimage 'coins' dataset.
 
-    Original: (303, 384), uint8
+    Original shape: (303, 384), uint8.
     """
-    x = data.coins()  # grayscale already
+    x = data.coins()
 
     x = _to_float32(x)
     x = _center_crop_to_square(x)
@@ -77,13 +80,13 @@ def load_coins(size=128, normalize="max"):
 
 def load_eagle(size=128, normalize="max"):
     """
-    Load skimage 'eagle' dataset.
+    Load the skimage 'eagle' dataset.
 
-    Original: (2019, 1826), uint8 or RGB depending on version.
+    The original image may be grayscale or RGB depending on
+    the installed scikit-image version.
     """
     x = data.eagle()
 
-    # grayscale if needed
     if x.ndim == 3:
         x = color.rgb2gray(x)
 
@@ -95,26 +98,80 @@ def load_eagle(size=128, normalize="max"):
     return x
 
 
+def load_camera(size=128, normalize="max"):
+    """
+    Load the skimage 'camera' dataset.
+
+    Original shape: (512, 512), uint8.
+    """
+    x = data.camera()
+
+    x = _to_float32(x)
+    x = _center_crop_to_square(x)
+    x = _resize(x, size)
+    x = _normalize(x, normalize)
+
+    return x
+
+
+def load_moon(size=128, normalize="max"):
+    """
+    Load the skimage 'moon' dataset.
+
+    Original image is grayscale.
+    """
+    x = data.moon()
+
+    x = _to_float32(x)
+    x = _center_crop_to_square(x)
+    x = _resize(x, size)
+    x = _normalize(x, normalize)
+
+    return x
+
 # ------------------------------------------------------------
 # Unified interface
 # ------------------------------------------------------------
 def get_image(name="coins", size=128, normalize="max"):
     """
-    Unified dataset interface.
+    Load and preprocess a sample image.
 
     Args:
-        name: "coins" or "eagle"
-        size: output resolution
-        normalize: "max" or "l2"
+        name:
+            Dataset name. Supported values are
+            "coins", "eagle", and "camera".
+        size:
+            Output spatial resolution.
+        normalize:
+            Normalization mode, either "max" or "l2".
 
     Returns:
-        x: (size, size) float32
+        Array with shape (size, size) and dtype float32.
     """
     if name == "coins":
-        return load_coins(size=size, normalize=normalize)
+        return load_coins(
+            size=size,
+            normalize=normalize,
+        )
 
-    elif name == "eagle":
-        return load_eagle(size=size, normalize=normalize)
+    if name == "eagle":
+        return load_eagle(
+            size=size,
+            normalize=normalize,
+        )
 
-    else:
-        raise ValueError(f"Unknown dataset: {name}")
+    if name == "camera":
+        return load_camera(
+            size=size,
+            normalize=normalize,
+        )
+
+    if name == "moon":
+        return load_moon(
+            size=size,
+            normalize=normalize,
+        )
+
+    raise ValueError(
+        f"Unknown dataset: {name}"
+    )
